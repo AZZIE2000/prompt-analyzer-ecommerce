@@ -16,10 +16,14 @@ export const promptAnalizerHandler = async (
   reply: FastifyReply
 ) => {
   const text = req.body.text;
-  const res = new FormBuilder(text).build();
+  const res = await new FormBuilder(text).build();
+  console.log("🔴🔴asdads🔴🔴🔴das🔴");
+  console.log(res);
+  console.log("🔴🔴🔴🔴🔴🔴");
+
   let final: Record<string, any> = {}; // The Object that will be filtering from
-    // const result = new Builder(text).build();
-    
+  // const result = new Builder(text).build();
+
   //NOTE : it will return an array of actions (buy, sell, rent)
   //FIXME : for now use the first one , when the UI is ready as the user to choose one
   final.action = await getAction(text);

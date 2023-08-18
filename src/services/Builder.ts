@@ -2,13 +2,13 @@ import { getAction, getCategory } from "./../helpers/search.helpers";
 abstract class Builder {
   constructor(protected text: string) {}
   protected abstract preparePrompt(): void; // STEP 1
-  protected abstract getForm(): void; // STEP 2
-  protected abstract fillForm(): void; // STEP 3
+  protected abstract getForm(): Promise<void>; // STEP 2
+  protected abstract fillForm(): Promise<void>; // STEP 3
   protected abstract generateURL(): any; // STEP 4
-  public build(): any {
+  public async build(): Promise<any> {
     this.preparePrompt();
-    this.getForm();
-    this.fillForm();
+    await this.getForm();
+    await this.fillForm();
     return this.generateURL();
   }
 }
@@ -43,6 +43,10 @@ export class FormBuilder extends Builder {
     console.log("this.form: =>");
     console.log(this.form);
   }
-  fillForm(): void {}
-  generateURL(): any {}
+
+  async fillForm(): Promise<void> {}
+  
+  generateURL(): any {
+    return this.form;
+  }
 }
