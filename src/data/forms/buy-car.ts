@@ -25,7 +25,7 @@ interface BuyCarInterface {
   car_listing_region: string | null;
 }
 
-export const buyCar = {
+export default {
   car_brand: null,
   car_model: null,
   car_year_from: null,

@@ -5,6 +5,7 @@ import { purpos } from "../data/constants/base";
 import similarity from "similarity";
 import { ExtractionService } from "../helpers/textraction.api";
 import { getAction, getCategory } from "../helpers/search.helpers";
+import { FormBuilder } from "../services/Builder";
 
 export const promptAnalizerHandler = async (
   req: FastifyRequest<{
@@ -15,7 +16,7 @@ export const promptAnalizerHandler = async (
   reply: FastifyReply
 ) => {
   const text = req.body.text;
-
+  const res = new FormBuilder(text).build();
   let final: Record<string, any> = {}; // The Object that will be filtering from
     // const result = new Builder(text).build();
     
