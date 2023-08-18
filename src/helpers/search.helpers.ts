@@ -13,7 +13,7 @@ export const getAction = async (
   ]);
   if (res) return res.action;
 };
-// 
+ 
 type GetCategoryType = "car" | "real-estate";
 export const getCategory = async (
   prompt: string
