@@ -1,16 +1,16 @@
 import { getAction, getCategory } from "./../helpers/search.helpers";
 abstract class Builder {
   constructor(protected text: string) {}
-  protected abstract preparePrompt(): void;
-  protected abstract getForm(): void;
-  protected abstract fillForm(): void;
+  protected abstract preparePrompt(): void; // STEP 1
+  protected abstract getForm(): void; // STEP 2
+  protected abstract fillForm(): void; // STEP 3
+  protected abstract generateURL(): any; // STEP 4
   public build(): any {
     this.preparePrompt();
     this.getForm();
     this.fillForm();
     return this.generateURL();
   }
-  protected abstract generateURL(): any;
 }
 
 // TODO : need to add form interface
@@ -22,25 +22,26 @@ export class FormBuilder extends Builder {
   protected form = {} as Record<string, any>;
 
   private async getActions(): Promise<void> {
-    this.form.action = await getAction(this.text);
+    const actions = await getAction(this.text);
+    this.form.action = actions[0]; // FIXME : for now use the first one , when the UI is ready as the user to choose one
   }
 
   private async getCategories(): Promise<void> {
-    this.form.category = await getCategory(this.text);
+    const categories = await getCategory(this.text);
+    this.form.category = categories[0]; // FIXME : for now use the first one , when the UI is ready as the user to choose one
   }
 
   async getForm(): Promise<void> {
     await this.getActions();
     await this.getCategories();
-    const action = this.form.action[0];
-    const category = this.form.category[0];
-    // const formToFill = require(`../data/forms/but-car.ts`);
-    const formToFill = require(`../data/forms/${action}-${category}`);
-    console.log(formToFill);
-
+    const action = this.form.action;
+    const category = this.form.category;
+    const { formToFill } = require(`../data/forms/${action}-${category}`);
     if (formToFill) {
       this.form = { ...this.form, ...formToFill };
     }
+    console.log("this.form: =>");
+    console.log(this.form);
   }
   fillForm(): void {}
   generateURL(): any {}
