@@ -4,7 +4,7 @@ import { findTextLang } from "../utils/text.utils";
 import { purpos } from "../data/constants/base";
 import similarity from "similarity";
 import { ExtractionService } from "../helpers/textraction.api";
-import { getAction } from "../helpers/search.helpers";
+import { getAction, getCategory } from "../helpers/search.helpers";
 
 export const promptAnalizerHandler = async (
   req: FastifyRequest<{
@@ -15,11 +15,17 @@ export const promptAnalizerHandler = async (
   reply: FastifyReply
 ) => {
   const text = req.body.text;
-  let final: Record<string, any> = {};
-  final.action = await getAction(text);
+
+  let final: Record<string, any> = {}; // The Object that will be filtering from
+    // const result = new Builder(text).build();
+    
   //NOTE : it will return an array of actions (buy, sell, rent)
   //FIXME : for now use the first one , when the UI is ready as the user to choose one
+  final.action = await getAction(text);
 
+  //NOTE : it will return an array of category (car, real-estate) *for now*
+  //FIXME : for now use the first one , when the UI is ready as the user to choose one
+  final.category = await getCategory(text);
 
   // find the purpose of the text (buy, sell, rent, service) ???????
   // output : URL
