@@ -7,7 +7,7 @@ export const purpos = [
   },
   {
     id: 2,
-    alt_AR: ["شراء", "اشتري", "اجيب"],
+    alt_AR: ["شراء", "اشتري", "اجيب", "بدي"],
     alt_EN: ["buy", "get", "bring"],
     action: "buy",
   },

@@ -2,6 +2,9 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { carsbrand2 } from "../data/constants/cars-brands";
 import { findTextLang } from "../utils/text.utils";
 import { purpos } from "../data/constants/base";
+import similarity from "similarity";
+import { ExtractionService } from "../helpers/textraction.api";
+import { getAction } from "../helpers/search.helpers";
 
 export const promptAnalizerHandler = async (
   req: FastifyRequest<{
@@ -11,27 +14,14 @@ export const promptAnalizerHandler = async (
   }>,
   reply: FastifyReply
 ) => {
-  // text
   const text = req.body.text;
-  const lang = findTextLang(text);
-  const altLang = lang.id === 1 ? "alt_AR" : "alt_EN";
-  let p;
-  if (lang.id === 1) {
-    p = purpos.find((p) => p[altLang].includes(text));
-    if (!p) {
-      return reply.send({ message: "nooooo" });
-    } else {
-      return reply.send({ message: p.action });
-    }
-  }
-  // find the purpose of the text (buy, sell, rent, service) ???????
+  let final: Record<string, any> = {};
+  final.action = await getAction(text);
+  //NOTE : it will return an array of actions (buy, sell, rent)
+  //FIXME : for now use the first one , when the UI is ready as the user to choose one
 
-  //
-  //
-  //
-  //
-  //
-  //
+
+  // find the purpose of the text (buy, sell, rent, service) ???????
   // output : URL
-  //   return reply.send({ message: text });
+  return reply.send(final);
 };

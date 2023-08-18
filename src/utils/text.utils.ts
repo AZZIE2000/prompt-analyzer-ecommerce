@@ -38,6 +38,9 @@ export const findTextLang = (text: string): LangToken => {
   }
 };
 
+
+export 
+
 // types
 enum LangId {
   en = 2,
