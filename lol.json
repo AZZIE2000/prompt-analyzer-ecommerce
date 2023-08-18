@@ -1,0 +1,191 @@
+[
+    {
+        "description": "looking for a car",
+        "type": "boolean",
+        "var_name": "look_for_cars"
+    },
+
+    {
+        "description": "looking for car for rental",
+        "type": "boolean",
+        "var_name": "car_for_rental"
+    },
+    {
+        "description": "car brand",
+        "type": "string",
+        "var_name": "car_brand"
+    },
+    {
+        "description": "car model",
+        "type": "string",
+        "var_name": "car_model"
+    },
+    {
+        "description": "car manufactur year from",
+        "type": "integer",
+        "var_name": "car_year_from"
+    },
+    {
+        "description": "car manufactur year to",
+        "type": "integer",
+        "var_name": "car_year_to"
+    },
+    {
+        "description": "car type",
+        "type": "string",
+        "var_name": "car_type"
+    },
+    {
+        "description": "car regional specs american, european, japanese, gcc",
+        "type": "string",
+        "var_name": "car_regional_specs"
+    },
+    {
+        "description": "car trnsmission type",
+        "type": "string",
+        "var_name": "car_transmission"
+    },
+    {
+        "description": "car fuel type",
+        "type": "string",
+        "var_name": "car_fuel"
+    },
+    {
+        "description": "car color",
+        "type": "string",
+        "var_name": "car_color"
+    },
+    {
+        "description": "car interior options",
+        "type": "string",
+        "var_name": "car_interior_options"
+    },
+    {
+        "description": "car condition",
+        "type": "string",
+        "var_name": "car_condition"
+    },
+    {
+        "description": "car kilometers in km",
+        "type": "string",
+        "var_name": "car_kilometers"
+    },
+    {
+        "description": "car paint condition",
+        "type": "string",
+        "var_name": "car_paint_condition"
+    },
+    {
+        "description": "car body condition",
+        "type": "string",
+        "var_name": "car_body_condition"
+    },
+    {
+        "description": "car license",
+        "type": "string",
+        "var_name": "car_body_condition",
+        "valid_values": [
+            "licensed",
+            "not licensed"
+        ]
+    },
+    {
+        "description": "car insurance",
+        "type": "string",
+        "var_name": "car_insurance"
+       
+    },
+    {
+        "description": "car payment method",
+        "type": "string",
+        "var_name": "car_payment_method"
+       
+    },
+    {
+        "description": "car origin country",
+        "type": "string",
+        "var_name": "car_origin"
+       
+    },
+    {
+        "description": "car price range from",
+        "type": "integer",
+        "var_name": "car_price_from"
+       
+    },
+    {
+        "description": "car price range to",
+        "type": "integer",
+        "var_name": "car_price_to"
+       
+    },
+    {
+        "description": "car in what city",
+        "type": "string",
+        "var_name": "car_city"
+       
+    }
+]
+// مطلوب سيارة بنزين اي نوع لحد 2000 دينار جير اوتوماتيك
+[
+    {
+        "description": "looking for a car",
+        "type": "boolean",
+        "var_name": "look_for_cars"
+    },
+    {
+        "description": "looking for car for sale",
+        "type": "boolean",
+        "var_name": "car_for_sale"
+    },
+    {
+        "description": "car brand",
+        "type": "string",
+        "var_name": "car_brand"
+    },
+    {
+        "description": "car model",
+        "type": "string",
+        "var_name": "car_model"
+    },
+    {
+        "description": "car manufactur year",
+        "type": "integer",
+        "var_name": "car_year"
+    },
+    {
+        "description": "car in city",
+        "type": "integer",
+        "var_name": "car_city"
+    },
+    {
+        "description": "car price",
+        "type": "string",
+        "var_name": "car_price"
+    },
+    {
+        "description": "car condition",
+        "type": "string",
+        "var_name": "car_condition"
+    },
+    {
+        "description": "car trnsmission type",
+        "type": "string",
+        "var_name": "car_transmission"
+    },
+    {
+        "description": "car fuel type",
+        "type": "string",
+        "var_name": "car_fuel"
+    },
+    {
+        "description": "car color",
+        "type": "string",
+        "var_name": "car_color"
+    },
+    {
+        "description": "car payment method",
+        "type": "string",
+        "var_name": "car_payment_method"
+    }
+]
