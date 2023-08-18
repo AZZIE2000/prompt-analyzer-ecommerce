@@ -15,8 +15,14 @@ export const promptAnalizerHandler = async (
   const text = req.body.text;
   const lang = findTextLang(text);
   const altLang = lang.id === 1 ? "alt_AR" : "alt_EN";
+  let p;
   if (lang.id === 1) {
-    purpos.find((p) => p[altLang].includes(text));
+    p = purpos.find((p) => p[altLang].includes(text));
+    if (!p) {
+      return reply.send({ message: "nooooo" });
+    } else {
+      return reply.send({ message: p.action });
+    }
   }
   // find the purpose of the text (buy, sell, rent, service) ???????
   //
@@ -27,5 +33,5 @@ export const promptAnalizerHandler = async (
   //
   //
   // output : URL
-  return reply.send({ message: text });
+//   return reply.send({ message: text });
 };
