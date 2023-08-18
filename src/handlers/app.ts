@@ -17,9 +17,7 @@ export const promptAnalizerHandler = async (
 ) => {
   const text = req.body.text;
   const res = await new FormBuilder(text).build();
-  console.log("🔴🔴asdads🔴🔴🔴das🔴");
-  console.log(res);
-  console.log("🔴🔴🔴🔴🔴🔴");
+
 
   let final: Record<string, any> = {}; // The Object that will be filtering from
   // const result = new Builder(text).build();
