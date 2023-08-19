@@ -1,5 +1,5 @@
-import { carsFuelType } from "../constants/fuel";
-import { carsBrandType } from "../constants/cars-brands";
+import { carsFuelType } from "../constants/cars/fuel";
+import { carsBrandType } from "../constants/cars/cars-brands";
 interface BuyCarInterface {
   car_brand: carsBrandType | string | null;
   car_model: string | null;
@@ -30,7 +30,7 @@ export const formToFill = {
   car_model: null,
   car_year_from: null,
   car_year_to: null,
-  car_type: null,
+  car_body_type: null,
   car_price_from: null,
   car_price_to: null,
   car_regional_specs: null,
@@ -45,7 +45,8 @@ export const formToFill = {
   car_license_status: null,
   car_insurance_status: null,
   car_payment_method: null,
-  car_manifacture_country: null,
+  car_manufacture_country: null,
   car_listing_city: null,
   car_listing_region: null,
+  lang: null,
 };

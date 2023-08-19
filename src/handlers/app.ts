@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import { carsbrand2 } from "../data/constants/cars-brands";
+import { carsbrand2 } from "../data/constants/cars/cars-brands";
 import { findTextLang } from "../utils/text.utils";
 import { purpos } from "../data/constants/base";
 import similarity from "similarity";
@@ -18,19 +18,13 @@ export const promptAnalizerHandler = async (
   const text = req.body.text;
   const res = await new FormBuilder(text).build();
 
-
-  let final: Record<string, any> = {}; // The Object that will be filtering from
+  // The Object that will be filtering from
   // const result = new Builder(text).build();
 
   //NOTE : it will return an array of actions (buy, sell, rent)
   //FIXME : for now use the first one , when the UI is ready as the user to choose one
-  final.action = await getAction(text);
-
-  //NOTE : it will return an array of category (car, real-estate) *for now*
-  //FIXME : for now use the first one , when the UI is ready as the user to choose one
-  final.category = await getCategory(text);
 
   // find the purpose of the text (buy, sell, rent, service) ???????
   // output : URL
-  return reply.send(final);
+  return reply.send({ url: res });
 };

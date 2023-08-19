@@ -1,4 +1,4 @@
-const carBody = {
+export const carBody = {
   Bus_MiniVan: {
     id: 7702,
   },

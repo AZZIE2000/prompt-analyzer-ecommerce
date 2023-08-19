@@ -2,27 +2,27 @@ import { EntityInteface } from "../../types";
 
 export const entities: EntityInteface[] = [
   {
-    description: "what is the car brand in english ?",
-    type: "string",
+    description: "what is the car brands in english ? if mentioned or null",
+    type: "array[string]",
     var_name: "car_brand",
   },
   {
-    description: "what is the car model in english ?",
+    description: "what is the car model in english ? if mentioned or null",
     type: "string",
     var_name: "car_model",
   },
   {
-    description: "what is the car year from ?",
+    description: "what is the car year from ? if mentioned or null",
     type: "integer",
     var_name: "car_year_from",
   },
   {
-    description: "what is the car year to ?",
+    description: "what is the car year to ? if mentioned or null",
     type: "integer",
     var_name: "car_year_to",
   },
   {
-    description: "what is the car body type ?",
+    description: "what is the car body type ? if mentioned or null",
     type: "array[string]",
     var_name: "car_body_type",
     valid_values: [
@@ -37,22 +37,22 @@ export const entities: EntityInteface[] = [
     ],
   },
   {
-    description: "what is the car price from ?",
+    description: "what is the car price from ? if mentioned or null",
     type: "integer",
     var_name: "car_price_from",
   },
   {
-    description: "what is the car price to ?",
+    description: "what is the car price to ? if mentioned or null",
     type: "integer",
     var_name: "car_price_to",
   },
   {
-    description: "what is the car regional specs ?",
+    description: "what is the car regional specs ? if mentioned or null",
     type: "string",
     var_name: "car_regional_specs",
   },
   {
-    description: "what is the car transmission ?",
+    description: "what is the car transmission ? if ",
     type: "array[string]",
     var_name: "car_transmission",
     valid_values: ["automatic", "manual"],
@@ -64,63 +64,71 @@ export const entities: EntityInteface[] = [
     valid_values: ["gasoline", "diesel", "electric", "hybrid"],
   },
   {
-    description: "what is the car color ?",
-    type: "string",
+    description: "what is the car colors mentioned ? if mentioned or null",
+    type: "array[string]",
     var_name: "car_color",
   },
   {
-    description: "what is the car interior options ?",
-    type: "string",
+    description: "what is the car interior options ? if mentioned or null",
+    type: "array[string]",
     var_name: "car_interior_options",
   },
   {
-    description: "what is the car condition ?",
-    type: "string",
+    description: "what is the car condition ? if mentioned or null",
+    type: "array[string]",
     var_name: "car_condition",
+    valid_values: ["new", "used"],
   },
   {
-    description: "what is the car used kilometers ?",
+    description: "what is the car used kilometers ? if mentioned or null",
     type: "string",
     var_name: "car_used_kilometers",
   },
   {
-    description: "what is the car paint condition ?",
+    description: "what is the car paint condition ? if mentioned or null",
     type: "string",
     var_name: "car_paint_condition",
   },
   {
-    description: "what is the car body condition ?",
+    description: "what is the car body condition ? if mentioned or null",
     type: "string",
     var_name: "car_body_condition",
   },
   {
-    description: "what is the car license status ?",
+    description: "what is the car license status ? if mentioned or null",
     type: "string",
     var_name: "car_license_status",
   },
   {
-    description: "what is the car insurance status ?",
+    description: "what is the car insurance status ? if mentioned or null",
     type: "string",
     var_name: "car_insurance_status",
   },
   {
-    description: "what is the car payment method ?",
+    description: "what is the car payment method ? if mentioned or null",
     type: "string",
     var_name: "car_payment_method",
   },
   {
-    description: "what is the car manifacture country ?",
+    description:
+      "the country that the car was manufactured in? if mentioned or null",
     type: "string",
-    var_name: "car_manifacture_country",
+    var_name: "car_manufacture_country",
   },
   {
-    description: "what is the car listing city ?",
+    description: "what is the car listing city ? if mentioned or null",
     type: "string",
     var_name: "car_listing_city",
   },
   {
-    description: "what is the car listing region ?",
+    description: "what is the car listing region ? if mentioned or null",
     type: "string",
     var_name: "car_listing_region",
+  },
+  {
+    description: "what is the language of the text",
+    type: "string",
+    var_name: "lang",
+    valid_values: ["ar", "en"],
   },
 ];
