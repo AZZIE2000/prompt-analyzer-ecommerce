@@ -52,6 +52,7 @@ export class FormBuilder extends Builder {
   }
 
   async fillForm(): Promise<void> {
+    // TODO fill from the url
     const formToFill = { ...this.form }; // Create a copy of the form object
     const formEntries = Object.entries(formToFill);
     const nullValueEntries = formEntries.filter(
@@ -220,6 +221,7 @@ class GenerateCarsUrl extends CarMethods {
   private baseLink = "https://jo.opensooq.com/";
 
   private generateURL(): any {
+    // TODO : rewrite this in const url = new CarMethods().getCarAction(this.form.action).getEtc(...).geturl()
     this.baseLink += this.langFun(this.form.lang);
     this.baseLink +=
       this.form.car_listing_city
@@ -229,10 +231,10 @@ class GenerateCarsUrl extends CarMethods {
     this.baseLink += this.getCarAction(this.form.action);
     if (this.form.car_brand && this.form.car_brand.length === 1) {
       this.baseLink += this.form.car_brand[0].toLowerCase() + "/";
-    this.baseLink +=
-      this.form.car_model.toLowerCase() === "cephia"
-        ? "sephia"
-        : this.form.car_model.toLowerCase();
+      this.baseLink +=
+        this.form.car_model.toLowerCase() === "cephia"
+          ? "sephia"
+          : this.form.car_model.toLowerCase();
     }
     this.baseLink += "?search=true";
     if (this.form.car_brand && this.form.car_brand.length > 1)
