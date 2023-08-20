@@ -106,8 +106,9 @@ export const entities: EntityInteface[] = [
   },
   {
     description: "what is the car payment method ? if mentioned or null",
-    type: "string",
+    type: "array[string]",
     var_name: "car_payment_method",
+    valid_values: ["cash", "installments", "cash or installments"],
   },
   {
     description:
@@ -116,7 +117,7 @@ export const entities: EntityInteface[] = [
     var_name: "car_manufacture_country",
   },
   {
-    description: "what is the car listing city ? if mentioned or null",
+    description: "what is the car listing city in english ? if mentioned or null",
     type: "string",
     var_name: "car_listing_city",
   },

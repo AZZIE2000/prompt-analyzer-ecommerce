@@ -6,6 +6,7 @@ import {
   CarsBrandWithIds,
   transmitionWithIds,
   conditionsWithIds,
+  paymentMethodsWitIds,
 } from "../data/constants/cars";
 abstract class Builder {
   constructor(protected text: string) {}
@@ -95,11 +96,7 @@ export class FormBuilder extends Builder {
 
       lastSlicedIndex++;
     }
-    console.log("🔴🔴🔴🔴");
-    console.log(this.form);
-    console.log("🔴🔴🔴🔴 qqqq");
-    console.log(Object.keys(this.form).length);
-    console.log("🔴🔴🔴🔴 llqqqlll");
+
     // Now the form is filled, you can use the filled formToFill for your further operations
   }
 
@@ -204,7 +201,13 @@ class CarMethods {
     const id = conditionsWithIds[condition[0]];
     if (!id) return "";
     return `&ConditionUsed=${id}`;
-  }
+  };
+  protected getCarPaymentMethod = (paymentMethod: string[]) => {
+    if (!paymentMethod || paymentMethod.length === 3) return "";
+    const id = paymentMethodsWitIds[paymentMethod[0]];
+    if (!id) return "";
+    return `&Payment_Method=${id}`;
+  };
 }
 
 class GenerateCarsUrl extends CarMethods {
@@ -218,12 +221,18 @@ class GenerateCarsUrl extends CarMethods {
 
   private generateURL(): any {
     this.baseLink += this.langFun(this.form.lang);
+    this.baseLink +=
+      this.form.car_listing_city
+        .toLowerCase()
+        .replace("'", "-")
+        .replace("al-", "") + "/";
     this.baseLink += this.getCarAction(this.form.action);
     if (this.form.car_brand && this.form.car_brand.length === 1) {
-      this.baseLink +=
-        this.form.car_brand[0].toLowerCase() +
-        "/" +
-        this.form.car_model.toLowerCase();
+      this.baseLink += this.form.car_brand[0].toLowerCase() + "/";
+    this.baseLink +=
+      this.form.car_model.toLowerCase() === "cephia"
+        ? "sephia"
+        : this.form.car_model.toLowerCase();
     }
     this.baseLink += "?search=true";
     if (this.form.car_brand && this.form.car_brand.length > 1)
@@ -239,6 +248,7 @@ class GenerateCarsUrl extends CarMethods {
     this.baseLink += this.getColor(this.form.car_color);
     this.baseLink += this.getCarTransmission(this.form.car_transmission);
     this.baseLink += this.getCarCondition(this.form.car_condition);
+    this.baseLink += this.getCarPaymentMethod(this.form.car_payment_method);
 
     console.log("🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢🟢");
     console.log(this.baseLink);
