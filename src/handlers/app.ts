@@ -26,5 +26,7 @@ export const promptAnalizerHandler = async (
 
   // find the purpose of the text (buy, sell, rent, service) ???????
   // output : URL
+  // output : URL
+  // output : URL
   return reply.send({ url: res });
 };
