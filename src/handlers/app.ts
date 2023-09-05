@@ -24,9 +24,9 @@ export const promptAnalizerHandler = async (
   //NOTE : it will return an array of actions (buy, sell, rent)
   //FIXME : for now use the first one , when the UI is ready as the user to choose one
 
-  // find the purpose of the text (buy, sell, rent, service) ???????
+  // find tasdhasde purposdasdasdasde of the text (buy, sell, rent, service) ???????
   // output : URL
-  // output : URL
+  // output :asdasd UdsaRL
   // output : URL
 
   return reply.send({ url: res });
