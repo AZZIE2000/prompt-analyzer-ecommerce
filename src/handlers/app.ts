@@ -33,6 +33,5 @@ export const promptAnalizerHandler = async (
   // output : URL
   // output : URL
   // output : URL
-  // output : URL
   return reply.send({ url: res });
 };
