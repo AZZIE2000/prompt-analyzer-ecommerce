@@ -12,3 +12,18 @@ export const purpos = [
     action: "buy",
   },
 ];
+export const jordanCities = [
+  "amman",
+  "zarqa",
+  "irbid",
+  "aqaba",
+  "mafraq",
+  "ramtha",
+  "salt",
+  "madaba",
+  "tafila",
+  "karak",
+  "maan",
+  "ajloun",
+  "jerash",
+];

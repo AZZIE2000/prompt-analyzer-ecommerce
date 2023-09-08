@@ -8,8 +8,10 @@ import {
   conditionsWithIds,
   paymentMethodsWitIds,
 } from "../data/constants/cars";
+import { jordanCities } from "../data/constants/base";
+let savedConvData = {};
 abstract class Builder {
-  constructor(protected text: string) {}
+  constructor(protected text: string, protected convId: string) {}
   protected abstract preparePrompt(): void; // STEP 1
   protected abstract getForm(): Promise<void>; // STEP 2
   protected abstract fillForm(): Promise<void>; // STEP 3
@@ -26,23 +28,39 @@ abstract class Builder {
 
 export class FormBuilder extends Builder {
   preparePrompt(): void {
+    console.log("1 💜💜 preparePrompt");
     this.text = this.text;
+    const savedForm = savedConvData[this.convId];
+
+    if (savedForm) {
+      this.form = savedForm;
+    }
   }
   protected form = {} as Record<string, any>;
-
-  private async getActions(): Promise<void> {
-    const actions = await getAction(this.text);
-    this.form.action = actions[0]; // FIXME : for now use the first one , when the UI is ready as the user to choose one
+  private saveFormConv(): void {
+    savedConvData[this.convId] = this.form;
   }
+  private async getActions(): Promise<void> {
+    console.log("2.1 💜💜 getActions");
 
-  private async getCategories(): Promise<void> {
-    const categories = await getCategory(this.text);
-    this.form.category = categories[0]; // FIXME : for now use the first one , when the UI is ready as the user to choose one
+    const actions = await getAction(this.text);
+    console.log(actions);
+
+    this.form.action = actions.action[0];
+    this.form.category = actions.category[0];
   }
 
   async getForm(): Promise<void> {
+    console.log("2 💜💜 getForm");
+
+    console.log("this.form");
+    console.log(this.form);
+    console.log("this.form");
+
+    if (Object.keys(this.form).length > 0) return;
+
     await this.getActions();
-    await this.getCategories();
+
     const action = this.form.action;
     const category = this.form.category;
     const { formToFill } = require(`../data/forms/${action}-${category}`);
@@ -52,28 +70,26 @@ export class FormBuilder extends Builder {
   }
 
   async fillForm(): Promise<void> {
-    // TODO fill from the url
-    const formToFill = { ...this.form }; // Create a copy of the form object
-    const formEntries = Object.entries(formToFill);
-    const nullValueEntries = formEntries.filter(
-      ([key, value]) => value === null
-    );
-
     const entitiesPath = `../data/api-requests/${this.form.action}-${this.form.category}-entities`;
-
     const { entities } = require(entitiesPath);
 
-    console.log("🔴🔴🔴🔴 lllll");
-    console.log(entities.length);
-    console.log("🔴🔴🔴🔴 lllll");
-    let lastSlicedIndex = 0;
     const batchSize = 12;
+    const formToFill = { ...this.form };
+    let lastSlicedIndex = 0;
+    let responseData = {};
 
-    while (lastSlicedIndex * batchSize < nullValueEntries.length) {
+    while (true) {
+      // Infinite loop to keep asking about all fields
       const startIdx = lastSlicedIndex * batchSize;
-      const endIdx = Math.min(startIdx + batchSize, nullValueEntries.length);
+      const endIdx = Math.min(
+        startIdx + batchSize,
+        Object.keys(formToFill).length
+      );
 
-      const slicedFormEntities = nullValueEntries.slice(startIdx, endIdx);
+      const slicedFormEntities = Object.entries(formToFill).slice(
+        startIdx,
+        endIdx
+      );
       const fieldsToFill = Object.fromEntries(slicedFormEntities);
 
       const entitiesToFill = Object.keys(fieldsToFill).map((key) => {
@@ -85,23 +101,56 @@ export class FormBuilder extends Builder {
         this.text,
         entitiesToFill.filter((entity) => entity)
       );
-      console.log("🔴🔴🔴🔴");
 
+      console.log("getAnswer", lastSlicedIndex);
       console.log(getAnswer);
+      console.log("getAnswer", lastSlicedIndex);
 
-      // Process the response and fill the form
-      // for (const [key, value] of Object.entries(getAnswer)) {
-      //   formToFill[key] = value;
-      // }
-      this.form = { ...this.form, ...getAnswer };
+      responseData = { ...responseData, ...getAnswer };
 
       lastSlicedIndex++;
+
+      // Exit the loop if all fields have been filled
+      if (
+        startIdx + slicedFormEntities.length >=
+        Object.keys(formToFill).length
+      ) {
+        break;
+      }
     }
 
-    // Now the form is filled, you can use the filled formToFill for your further operations
+    console.log("🟢🟢🟢🟢 this.form");
+    console.log(this.form);
+
+    console.log("🟢🟢🟢🟢 responseData");
+    console.log(responseData);
+
+    for (let key of Object.keys(responseData)) {
+      const existingValue = this.form[key];
+      const newIncomingValue = responseData[key];
+
+      if (
+        Array.isArray(existingValue) &&
+        newIncomingValue &&
+        Array.isArray(newIncomingValue)
+      ) {
+        // If the existing value is an array, append the new value(s)
+        this.form[key] = existingValue.concat(newIncomingValue);
+      } else if (
+        newIncomingValue &&
+        newIncomingValue !== "null" &&
+        newIncomingValue !== "unknown"
+      ) {
+        this.form[key] = responseData[key];
+      }
+    }
+
+    console.log("🟢🟢🟢🟢 this.form");
+    console.log(this.form);
   }
 
   generateURL(): any {
+    this.saveFormConv();
     const URL = new GenerateCarsUrl(this.form).getURL();
     console.log("generateURL");
     console.log(URL);
@@ -223,18 +272,25 @@ class GenerateCarsUrl extends CarMethods {
   private generateURL(): any {
     // TODO : rewrite this in const url = new CarMethods().getCarAction(this.form.action).getEtc(...).geturl()
     this.baseLink += this.langFun(this.form.lang);
-    this.baseLink +=
-      this.form.car_listing_city
-        .toLowerCase()
-        .replace("'", "-")
-        .replace("al-", "") + "/";
+    if (
+      this.form.car_listing_city &&
+      jordanCities.includes(this.form.car_listing_city)
+    ) {
+      this.baseLink +=
+        this.form.car_listing_city
+          .toLowerCase()
+          .replace("'", "-")
+          .replace("al-", "") + "/";
+    }
     this.baseLink += this.getCarAction(this.form.action);
     if (this.form.car_brand && this.form.car_brand.length === 1) {
       this.baseLink += this.form.car_brand[0].toLowerCase() + "/";
-      this.baseLink +=
-        this.form.car_model.toLowerCase() === "cephia"
-          ? "sephia"
-          : this.form.car_model.toLowerCase();
+      if (this.form.car_model) {
+        this.baseLink +=
+          this.form.car_model.toLowerCase() === "cephia"
+            ? "sephia"
+            : this.form.car_model.toLowerCase();
+      }
     }
     this.baseLink += "?search=true";
     if (this.form.car_brand && this.form.car_brand.length > 1)

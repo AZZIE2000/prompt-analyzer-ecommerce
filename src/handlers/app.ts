@@ -11,12 +11,14 @@ export const promptAnalizerHandler = async (
   req: FastifyRequest<{
     Body: {
       text: string;
+      convId: string;
     };
   }>,
   reply: FastifyReply
 ) => {
   const text = req.body.text;
-  const res = await new FormBuilder(text).build();
+  const convId = req.body.convId;
+  const res = await new FormBuilder(text, convId).build();
 
   return reply.send({ url: res });
 };

@@ -10,7 +10,7 @@ interface BuyCarInterface {
   car_price_to: number | null;
   car_regional_specs: string | null;
   car_transmission: "automatic" | "manual" | string | null;
-  car_fuel: carsFuelType | string | null;
+  // car_fuel: carsFuelType | string | null;
   car_color: string | null;
   car_interior_options: string | null;
   car_condition: string | null;
@@ -35,7 +35,7 @@ export const formToFill = {
   car_price_to: null,
   car_regional_specs: null,
   car_transmission: null,
-  car_fuel: null,
+  // car_fuel: null,
   car_color: null,
   car_interior_options: null,
   car_condition: null,
