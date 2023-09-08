@@ -18,16 +18,5 @@ export const promptAnalizerHandler = async (
   const text = req.body.text;
   const res = await new FormBuilder(text).build();
 
-  // The Object that will be filtering from
-  // const result = new Builder(text).build();
-
-  //NOTE : it will return an array of actions (buy, sell, rent)
-  //FIXME : for now use the first one , when the UI is ready as the user to choose one
-
-  // find tasdhasde purposdasdasdasde of the text (buy, sell, rent, service) ???????
-  // output : URL
-  // output :asdasd UdsaRL
-  // output : URL
-
   return reply.send({ url: res });
 };
