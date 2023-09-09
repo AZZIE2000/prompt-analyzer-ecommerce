@@ -126,26 +126,26 @@ export class FormBuilder extends Builder {
 
     console.log("🟢🟢🟢🟢 responseData");
     console.log(responseData);
+    this.form = { ...this.form, ...responseData };
+    // for (let key of Object.keys(responseData)) {
+    //   const existingValue = this.form[key];
+    //   const newIncomingValue = responseData[key];
 
-    for (let key of Object.keys(responseData)) {
-      const existingValue = this.form[key];
-      const newIncomingValue = responseData[key];
-
-      if (
-        Array.isArray(existingValue) &&
-        newIncomingValue &&
-        Array.isArray(newIncomingValue)
-      ) {
-        // If the existing value is an array, append the new value(s)
-        this.form[key] = existingValue.concat(newIncomingValue);
-      } else if (
-        newIncomingValue &&
-        newIncomingValue !== "null" &&
-        newIncomingValue !== "unknown"
-      ) {
-        this.form[key] = responseData[key];
-      }
-    }
+    //   if (
+    //     Array.isArray(existingValue) &&
+    //     newIncomingValue &&
+    //     Array.isArray(newIncomingValue)
+    //   ) {
+    //     // If the existing value is an array, append the new value(s)
+    //     this.form[key] = existingValue.concat(newIncomingValue);
+    //   } else if (
+    //     newIncomingValue &&
+    //     newIncomingValue !== "null" &&
+    //     newIncomingValue !== "unknown"
+    //   ) {
+    //     this.form[key] = responseData[key];
+    //   }
+    // }
 
     console.log("🟢🟢🟢🟢 this.form");
     console.log(this.form);
