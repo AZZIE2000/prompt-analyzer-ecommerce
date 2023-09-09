@@ -16,6 +16,10 @@ export const promptAnalizerHandler = async (
   }>,
   reply: FastifyReply
 ) => {
+  console.log("req.body 💜💜💜💜💜💜💜💜💜💜💜💜💜");
+  console.log(req.body);
+  console.log("req.body");
+
   const text = req.body.text;
   const convId = req.body.convId;
   const res = await new FormBuilder(text, convId).build();

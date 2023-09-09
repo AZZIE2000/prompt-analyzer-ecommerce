@@ -43,11 +43,13 @@ export class FormBuilder extends Builder {
   private async getActions(): Promise<void> {
     console.log("2.1 💜💜 getActions");
 
-    const actions = await getAction(this.text);
-    console.log(actions);
+    // const actions = await getAction(this.text);
+    // console.log(actions);
 
-    this.form.action = actions.action[0];
-    this.form.category = actions.category[0];
+    // this.form.action = actions.action[0] || "buy";
+    // this.form.category = actions.category[0] || "cars";
+    this.form.action = "buy";
+    this.form.category = "car";
   }
 
   async getForm(): Promise<void> {
@@ -253,10 +255,11 @@ class CarMethods {
     return `&ConditionUsed=${id}`;
   };
   protected getCarPaymentMethod = (paymentMethod: string[]) => {
-    if (!paymentMethod || paymentMethod.length === 3) return "";
-    const id = paymentMethodsWitIds[paymentMethod[0]];
-    if (!id) return "";
-    return `&Payment_Method=${id}`;
+    if (!paymentMethod || paymentMethod.length >= 2) return "";
+    const id1 = paymentMethodsWitIds[paymentMethod[0]];
+    const id2 = paymentMethodsWitIds[paymentMethod[1]];
+    if (!id1 && !id2) return "";
+    return `&Payment_Method=${id1}${id2 ? "," + id2 : ""}`;
   };
 }
 
@@ -274,7 +277,7 @@ class GenerateCarsUrl extends CarMethods {
     this.baseLink += this.langFun(this.form.lang);
     if (
       this.form.car_listing_city &&
-      jordanCities.includes(this.form.car_listing_city)
+      jordanCities.includes(this.form.car_listing_city.toLowerCase())
     ) {
       this.baseLink +=
         this.form.car_listing_city

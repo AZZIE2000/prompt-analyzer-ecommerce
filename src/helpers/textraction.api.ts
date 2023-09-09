@@ -1,8 +1,6 @@
 import axios from "axios";
 import { EntityInteface } from "../types";
 
-
-
 export const ExtractionService = async <T>(
   prompt: string,
   entities: EntityInteface[]
@@ -10,14 +8,17 @@ export const ExtractionService = async <T>(
   let response;
   try {
     response = await axios.post(
-      "https://www.textraction.ai/api/demo/extract",
+      "https://ai-textraction.p.rapidapi.com/textraction",
       {
         text: prompt,
         entities: entities,
       },
       {
         headers: {
-          "Content-Type": "application/json",
+          "content-type": "application/json",
+          "X-RapidAPI-Key":
+            "ccb59b6600msh48f48edd5904e9ap1a446fjsn053cc7497999",
+          "X-RapidAPI-Host": "ai-textraction.p.rapidapi.com",
         },
       }
     );
